@@ -1,33 +1,14 @@
+const { v4: uuidv4 } = require("uuid");
+
 const date = new Date().toLocaleDateString();
 
-let flights = [
-	{
-		title: "flight to Canada",
-		time: "2pm",
-		price: new Intl.NumberFormat("en-us", {
-			style: "currency",
-			currency: "NGN",
-		}).format(26000),
-		date,
-	},
-	{
-		title: "flight to Nigeria",
-		time: "2am",
-		price: new Intl.NumberFormat("en-us", {
-			style: "currency",
-			currency: "NGN",
-		}).format(56000),
-		date,
-	},
-];
+let flights = [];
 
 exports.getAllFlights = (req, res) => {
-	console.log("The get all flights route was visited");
 	res.send(flights);
 };
 
 exports.AddFlight = (req, res) => {
-	// console.log("A flight was booked");
 	const { title, time, price, date } = req.body;
 	let newTime = time.charAt(0);
 	console.log(newTime);
@@ -42,9 +23,16 @@ exports.AddFlight = (req, res) => {
 				currency: "NGN",
 			}).format(price),
 			date: new Date(date).toLocaleDateString(),
+			id: uuidv4(),
 		},
 	];
 
-	// console.log(title);
 	res.send(`The flight with title: ${title} was successfully booked!!`);
+};
+
+exports.GetSingleFlight = (req, res) => {
+	const { id } = req.params;
+
+	const singleFLight = flights.find((flight) => flight.id === id);
+	res.send(singleFLight);
 };

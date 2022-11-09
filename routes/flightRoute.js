@@ -4,12 +4,19 @@ const express = require("express");
 const router = express.Router();
 
 // --> destruction all of the functions to obtain different routes fron the "flightController"
-const { getAllFlights, AddFlight } = require("../controllers/flightController");
+const {
+	getAllFlights,
+	AddFlight,
+	GetSingleFlight,
+} = require("../controllers/flightController");
 
 // --> getting all flights
 router.get("/", getAllFlights);
 
 // --> Adding/Booking a Flight
 router.post("/", AddFlight);
+
+// --> Getting individual flight by id
+router.get("/:id", GetSingleFlight);
 
 module.exports = router;
