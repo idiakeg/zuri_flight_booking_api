@@ -8,6 +8,7 @@ const {
 	getAllFlights,
 	AddFlight,
 	GetSingleFlight,
+	DeleteFlight,
 } = require("../controllers/flightController");
 
 // --> getting all flights
@@ -18,5 +19,8 @@ router.post("/", AddFlight);
 
 // --> Getting individual flight by id
 router.get("/:id", GetSingleFlight);
+
+// --> route for deleting flight
+router.delete("/:id", DeleteFlight);
 
 module.exports = router;

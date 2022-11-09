@@ -36,3 +36,10 @@ exports.GetSingleFlight = (req, res) => {
 	const singleFLight = flights.find((flight) => flight.id === id);
 	res.send(singleFLight);
 };
+
+exports.DeleteFlight = (req, res) => {
+	const { id } = req.params;
+
+	flights = flights.filter((flight) => flight.id !== id);
+	res.send(`user with the id: ${id} has been deleted from the database`);
+};
