@@ -1,11 +1,9 @@
 const date = new Date().toLocaleDateString();
 
-const time = new Date().toLocaleTimeString();
-
-const flights = [
+let flights = [
 	{
 		title: "flight to Canada",
-		time,
+		time: "2pm",
 		price: new Intl.NumberFormat("en-us", {
 			style: "currency",
 			currency: "NGN",
@@ -14,7 +12,7 @@ const flights = [
 	},
 	{
 		title: "flight to Nigeria",
-		time,
+		time: "2am",
 		price: new Intl.NumberFormat("en-us", {
 			style: "currency",
 			currency: "NGN",
@@ -28,4 +26,25 @@ exports.getAllFlights = (req, res) => {
 	res.send(flights);
 };
 
-exports.frame = "good food";
+exports.AddFlight = (req, res) => {
+	// console.log("A flight was booked");
+	const { title, time, price, date } = req.body;
+	let newTime = time.charAt(0);
+	console.log(newTime);
+
+	flights = [
+		...flights,
+		{
+			title,
+			time,
+			price: new Intl.NumberFormat("en-us", {
+				style: "currency",
+				currency: "NGN",
+			}).format(price),
+			date: new Date(date).toLocaleDateString(),
+		},
+	];
+
+	// console.log(title);
+	res.send(`The flight with title: ${title} was successfully booked!!`);
+};
