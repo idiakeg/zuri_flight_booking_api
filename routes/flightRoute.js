@@ -9,6 +9,7 @@ const {
 	AddFlight,
 	GetSingleFlight,
 	DeleteFlight,
+	UpdateFlight,
 } = require("../controllers/flightController");
 
 // --> getting all flights
@@ -22,5 +23,8 @@ router.get("/:id", GetSingleFlight);
 
 // --> route for deleting flight
 router.delete("/:id", DeleteFlight);
+
+// --> route to update flight
+router.patch("/:id", UpdateFlight);
 
 module.exports = router;

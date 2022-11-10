@@ -38,8 +38,36 @@ exports.GetSingleFlight = (req, res) => {
 };
 
 exports.DeleteFlight = (req, res) => {
+	// obtain the id of the flight to be deleted
 	const { id } = req.params;
 
+	// deleted the flight with requested id
 	flights = flights.filter((flight) => flight.id !== id);
+
+	// inform the user that said flight has been deleted
 	res.send(`user with the id: ${id} has been deleted from the database`);
+};
+
+exports.UpdateFlight = (req, res) => {
+	// obtain the id to be updated
+	const { id } = req.params;
+
+	// find the flight with requested id
+	const flightToBeUpdated = flights.find((flight) => flight.id === id);
+
+	//  Obtain the details of the flight to be updated
+	const { title, time, price, date } = req.body;
+
+	// if any if the afforementioned properties of the flight was updated, the change should be reflected
+	if (title) flightToBeUpdated.title = title;
+	if (time) flightToBeUpdated.time = time;
+	if (price) {
+		flightToBeUpdated.price = new Intl.NumberFormat("en-us", {
+			style: "currency",
+			currency: "NGN",
+		}).format(price);
+	}
+	if (date) flightToBeUpdated.date = new Date(date).toLocaleDateString();
+
+	res.send(`flight with id: ${id} has been updated`);
 };
