@@ -2,7 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 
 const date = new Date().toLocaleDateString();
 
-let flights = [];
+let { flightsContainer: flights } = require("../models/Flight");
 
 exports.getAllFlights = (req, res) => {
 	res.send(flights);
